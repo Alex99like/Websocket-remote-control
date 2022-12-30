@@ -1,5 +1,6 @@
 import { mouse, left, right, up, down } from '@nut-tree/nut-js'
 import { drawCircle } from './drawCircle'
+import { drawRectangle } from './drawRectangle'
 
 export const actions = async (command: string, width: string, height: string) => {
   switch(command) {
@@ -21,6 +22,10 @@ export const actions = async (command: string, width: string, height: string) =>
     } 
     case 'draw_circle': {
       await drawCircle(width)
+      break
+    }
+    case 'draw_rectangle': {
+      await drawRectangle(+width, +height)
     }
   }
 }
