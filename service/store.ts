@@ -1,4 +1,5 @@
 import { mouse, left, right, up, down } from '@nut-tree/nut-js'
+import { drawCircle } from './drawCircle'
 
 export const actions = async (command: string, width: string, height: string) => {
   switch(command) {
@@ -18,5 +19,8 @@ export const actions = async (command: string, width: string, height: string) =>
       await mouse.move(down(+width))
       break
     } 
+    case 'draw_circle': {
+      await drawCircle(width)
+    }
   }
 }
