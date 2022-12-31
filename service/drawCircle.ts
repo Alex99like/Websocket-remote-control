@@ -5,9 +5,10 @@ export const drawCircle = async (cm: string) => {
     const radius = +cm / 2;
   
     await mouse.pressButton(Button.LEFT)
+
     for (let angle = 0; angle < 360; angle += 1) {
-      const x = center.x + radius * Math.cos((angle * Math.PI) / 180) - radius;
-      const y = center.y + radius * Math.sin((angle * Math.PI) / 180);
+      const x = center.x - radius * Math.cos((angle * Math.PI) / 180) + radius;
+      const y = center.y - radius * Math.sin((angle * Math.PI) / 180);
       await mouse.move(straightTo(new Point(x, y)));
     }
   
