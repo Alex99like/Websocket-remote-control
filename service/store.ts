@@ -27,6 +27,7 @@ export const actions = async (command: string, width: string, height: string) =>
     }
     case 'draw_rectangle': {
       await drawRectangle(+width, +height)
+      break
     }
     case 'draw_square': {
       await drawSquare(+width)
