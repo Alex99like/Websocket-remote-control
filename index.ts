@@ -1,6 +1,6 @@
 import { httpServer } from "./src/http_server/index";
 import { mouse } from "@nut-tree/nut-js";
-import { RawData, WebSocketServer } from 'ws'
+import {createWebSocketStream, RawData, WebSocketServer} from 'ws'
 import { reviewMessage } from "./helpers/reviewMessage";
 import { actions } from "./service/store";
 import { printScreen } from "./service/printScreen";
@@ -11,11 +11,11 @@ const wss = new WebSocketServer({ port: 8080 });
 
 wss.on('connection', (ws) => {
   console.log('Connect')
-  ws.on('message', async (data) => {
-    const [command, width, height] = data.toString('utf-8').split(' ')
-    
+  const stream = createWebSocketStream(ws, { encoding: 'utf8', decodeStrings: false });
+  stream.on('data', async (chunk) => {
+    const [command, width, height] = chunk.toString().split(' ')
     await actions(command, width, height)
-    await reviewMessage(data, ws)
+    await reviewMessage(chunk, stream)
   })
 })
 
