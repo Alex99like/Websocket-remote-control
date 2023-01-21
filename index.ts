@@ -1,16 +1,16 @@
 import { httpServer } from "./src/http_server/index";
-import { mouse } from "@nut-tree/nut-js";
-import {createWebSocketStream, RawData, WebSocketServer} from 'ws'
+import {createWebSocketStream, WebSocketServer} from 'ws'
 import { reviewMessage } from "./helpers/reviewMessage";
 import { actions } from "./service/store";
 import { printScreen } from "./service/printScreen";
 
 const HTTP_PORT = 8181;
+const WSS_PORT = 8080
 
-const wss = new WebSocketServer({ port: 8080 });
+const wss = new WebSocketServer({ port: WSS_PORT });
 
 wss.on('connection', (ws) => {
-  console.log('Connect')
+  console.log('Connect port')
   const stream = createWebSocketStream(ws, { encoding: 'utf8', decodeStrings: false });
   stream.on('data', async (chunk) => {
     const [command, width, height] = chunk.toString().split(' ')
@@ -21,3 +21,5 @@ wss.on('connection', (ws) => {
 
 console.log(`Start static http server on the ${HTTP_PORT} port!`);
 httpServer.listen(HTTP_PORT);
+
+wss.on('close', () => console.log('Connection is closed'));
