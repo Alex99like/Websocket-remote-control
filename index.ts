@@ -10,12 +10,13 @@ const WSS_PORT = 8080
 const wss = new WebSocketServer({ port: WSS_PORT });
 
 wss.on('connection', (ws) => {
-  console.log('Connect port')
+  console.log(`Connect port ${HTTP_PORT}`)
   const stream = createWebSocketStream(ws, { encoding: 'utf8', decodeStrings: false });
   stream.on('data', async (chunk) => {
     const [command, width, height] = chunk.toString().split(' ')
     await actions(command, width, height)
     await reviewMessage(chunk, stream)
+    console.log(`Last Command: ${chunk}`)
   })
 })
 

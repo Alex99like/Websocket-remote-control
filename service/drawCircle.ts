@@ -3,7 +3,7 @@ import { mouse, Button, straightTo, Point } from '@nut-tree/nut-js'
 export const drawCircle = async (cm: string) => {
     const center = await mouse.getPosition()
     const radius = +cm / 2;
-  
+    mouse.config.mouseSpeed = 300
     await mouse.pressButton(Button.LEFT)
 
     for (let angle = 0; angle < 360; angle += 1) {
