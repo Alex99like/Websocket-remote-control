@@ -21,6 +21,12 @@ wss.on('connection', (ws) => {
 })
 
 console.log(`Start static http server on the ${HTTP_PORT} port!`);
-httpServer.listen(HTTP_PORT);
+const server = httpServer.listen(HTTP_PORT);
+
+process.on('SIGINT', () => {
+  server.close()
+  wss.close()
+})
 
 wss.on('close', () => console.log('Connection is closed'));
+wss.on('error', (e) => console.log(`Error: ${e.message}`))
