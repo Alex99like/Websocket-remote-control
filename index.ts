@@ -5,7 +5,7 @@ import { actions } from "./service/store";
 import { printScreen } from "./service/printScreen";
 
 const HTTP_PORT = 8181;
-const WSS_PORT = 8080
+const WSS_PORT = 8080;
 
 const wss = new WebSocketServer({ port: WSS_PORT });
 
